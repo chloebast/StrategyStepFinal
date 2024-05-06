@@ -192,7 +192,7 @@ public class PlayerController : MonoBehaviour
     IEnumerator WaitAndLogP(int stairsNumber)
     {
         yield return new WaitForSecondsRealtime(5f);
-        Debug.Log($"Player is jumping {stairsNumber} stairs");
+        //Debug.Log($"Player is jumping {stairsNumber} stairs");
 
         Vector3 newPosition = characterController.transform.position;
 
@@ -256,7 +256,7 @@ public class PlayerController : MonoBehaviour
         {
         if (camerasVisible == true)
         {
-            Debug.Log("yescameras");
+           // Debug.Log("yescameras");
             camerasVisible = true;
             instructionPic.enabled = false;
             rawImagebackground.enabled = true;

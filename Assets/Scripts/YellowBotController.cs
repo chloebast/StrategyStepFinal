@@ -53,7 +53,7 @@ public class YellowBotController : MonoBehaviour
     public IEnumerator WaitAndLogY(int stairsNumberY)
     {
         yield return new WaitForSecondsRealtime(5f);
-        Debug.Log($"Yellow is jumping {stairsNumberY} stairs");
+       // Debug.Log($"Yellow is jumping {stairsNumberY} stairs");
         
        
 
@@ -83,7 +83,7 @@ public class YellowBotController : MonoBehaviour
     {
         float randomNumber2 = Random.Range(1f, 5f);
         yield return new WaitForSeconds(randomNumber2);
-        Debug.Log("Yellow is waiting " + randomNumber2 + " before jump");
+        //Debug.Log("Yellow is waiting " + randomNumber2 + " before jump");
 
         ySpeed = 0f;
         

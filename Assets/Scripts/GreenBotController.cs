@@ -67,7 +67,7 @@ public class GreenBotController : MonoBehaviour
    public IEnumerator WaitAndLogG(int stairsNumberG)
   {
       yield return new WaitForSecondsRealtime(5f);
-      Debug.Log($"Green is jumping {stairsNumberG} stairs");
+     // Debug.Log($"Green is jumping {stairsNumberG} stairs");
 
 
 

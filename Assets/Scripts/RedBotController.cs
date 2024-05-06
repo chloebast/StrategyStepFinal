@@ -61,7 +61,7 @@ public class RedBotController : MonoBehaviour
     public IEnumerator WaitAndLogR(int redselectedNumber)
     {
         yield return new WaitForSecondsRealtime(5f);
-        Debug.Log($"Red is jumping {redselectedNumber} stairs");
+       // Debug.Log($"Red is jumping {redselectedNumber} stairs");
 
 
 
