@@ -4,63 +4,98 @@ using UnityEngine;
 
 public class RedBotController : MonoBehaviour
 {
-   
-
+    
+    public int redselectedNumber;
     public float jumpSpeed;
     public float ySpeed;
-    private int redselectedNumber;
-    public CharacterController characterController;
+    public CharacterController characterControllerR;
+    public bool rBotJumped;
 
     void Start()
     {
-        RedBotSelection();
+        RedGO();
     }
 
-    private void RedBotSelection()
+   public void RedGO()
     {
-        int randomNumber = Random.Range(0, 2);
+        //do these each time cams turn off
+        RedBotSelection();
+        StartCoroutine(WaitAndPerformTaskR());
+    }
 
-        if (randomNumber == 0)
+    IEnumerator WaitAndPerformTaskR()
+    {
+        float randomNumber2 = Random.Range(1f, 5f);
+        yield return new WaitForSeconds(randomNumber2);
+        //Debug.Log("Red is waiting " + randomNumber2 + " before jump");
+        ySpeed = 0f;
+
+        if (characterControllerR.isGrounded)
+        {
+            ySpeed = jumpSpeed;
+        }
+        rBotJumped= true;
+}
+
+    void RedBotSelection()
+    {
+        int randomNumberR = Random.Range(0, 3);
+
+        if (randomNumberR == 0)
         {
             redselectedNumber = 1;
         }
-        else if (randomNumber == 1)
+        else if (randomNumberR == 1)
         {
             redselectedNumber = 3;
         }
-        else
+        else if (randomNumberR == 2)
         {
             redselectedNumber = 5;
         }
 
         Debug.Log("RedBot Chose: " + redselectedNumber);
 
-        StartCoroutine(WaitAndPerformTask());
+
     }
-
-    IEnumerator WaitAndPerformTask()
+    public IEnumerator WaitAndLogR(int redselectedNumber)
     {
-        int randomNumber2 = Random.Range(0, 5);
-        yield return new WaitForSeconds(randomNumber2);
+        yield return new WaitForSecondsRealtime(5f);
+        Debug.Log($"Red is jumping {redselectedNumber} stairs");
 
-        // Reset ySpeed before jump
-        ySpeed = 0f;
 
-        // Perform jump if grounded
-        if (characterController.isGrounded)
+
+        Vector3 targetPosition = Vector3.zero;
+        switch (redselectedNumber)
         {
-            ySpeed = jumpSpeed;
+            case 1:
+                targetPosition = new Vector3(0f, 1f, 2f);
+                break;
+            case 3:
+                targetPosition = new Vector3(0f, 3f, 5.5f);
+                break;
+            case 5:
+                targetPosition = new Vector3(0f, 2.7f, 8.7f);
+                break;
+            default:
+                Debug.LogError("Invalid redselectedNumber.");
+                break;
         }
+
+        characterControllerR.Move(targetPosition - transform.position);
+
 
     }
 
     void Update()
     {
-        // Apply gravity and move the character controller
+        
         ySpeed += Physics.gravity.y * Time.deltaTime;
         Vector3 verticalMovement = Vector3.up * ySpeed * Time.deltaTime;
-        characterController.Move(verticalMovement);
+        characterControllerR.Move(verticalMovement);
     }
-
     
+
 }
+
+
