@@ -13,6 +13,7 @@ public class RedBotController : MonoBehaviour
 
     void Start()
     {
+        rBotJumped = false;
         RedGO();
     }
 
@@ -30,7 +31,7 @@ public class RedBotController : MonoBehaviour
         //Debug.Log("Red is waiting " + randomNumber2 + " before jump");
         ySpeed = 0f;
 
-        if (characterControllerR.isGrounded)
+        if (characterControllerR.isGrounded && !rBotJumped)
         {
             ySpeed = jumpSpeed;
         }

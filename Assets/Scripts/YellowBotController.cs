@@ -18,7 +18,7 @@ public class YellowBotController : MonoBehaviour
     {
 
         YellowGO();
-       
+        yBotJumped = false;
     }
 
     public void YellowGO()
@@ -88,7 +88,7 @@ public class YellowBotController : MonoBehaviour
         ySpeed = 0f;
         
 
-        if (characterController.isGrounded)
+        if (characterController.isGrounded && !yBotJumped)
         {
             ySpeed = jumpSpeed;
             //ySpeed = Mathf.Clamp(ySpeed, -jumpSpeed, jumpSpeed);

@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using TMPro;
 using Unity.VisualScripting;
 using JetBrains.Annotations;
+using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 public class PlayerController : MonoBehaviour
 {
@@ -35,12 +36,15 @@ public class PlayerController : MonoBehaviour
     private bool hasSelectedNumber;
     //for camera cut scene
     
-    public RawImage rawImagebackground;
+    public RawImage PFrame;
 
     public RawImage rawImagePlayerCam;
     public RawImage rawImageRedCam;
     public RawImage rawImageGreenCam;
     public RawImage rawImageYellowCam;
+    public RawImage YFrame;
+    public RawImage GFrame;
+    public RawImage RFrame;
     public RawImage instructionPic;
     public TextMeshProUGUI PlayerPick;
     public TextMeshProUGUI RedPick;
@@ -65,6 +69,7 @@ public class PlayerController : MonoBehaviour
     public GreenBotController Gbc;
    public YellowBotController Ybc;
     public RedBotController Rbc;
+    public CamController Cc;
 
     private bool camerasVisible = false;
 
@@ -178,6 +183,10 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSecondsRealtime(1f);
         camerasVisible = true;
         UnhideCameras();
+        Cc.CamMoveIn();
+        UnhideScores();
+        yield return new WaitForSecondsRealtime(2f);
+        CompareNumbersFaceChange();
         yield return new WaitForSecondsRealtime(5f); 
         camerasVisible = false;
         HideCameras();
@@ -222,7 +231,10 @@ public class PlayerController : MonoBehaviour
         {
 
             
-            rawImagebackground.enabled = false;
+            PFrame.enabled = false;
+            RFrame.enabled = false;
+            GFrame.enabled = false;
+            YFrame.enabled = false;
             rawImagePlayerCam.enabled = false;
             rawImageRedCam.enabled = false;
             rawImageGreenCam.enabled = false;
@@ -256,30 +268,46 @@ public class PlayerController : MonoBehaviour
         {
         if (camerasVisible == true)
         {
-           // Debug.Log("yescameras");
+           
             camerasVisible = true;
             instructionPic.enabled = false;
-            rawImagebackground.enabled = true;
+            PFrame.enabled = true;
+            RFrame.enabled = true;
+            GFrame.enabled = true;
+            YFrame.enabled = true; 
             rawImagePlayerCam.enabled = true;
             rawImageRedCam.enabled = true;
             rawImageGreenCam.enabled = true;
             rawImageYellowCam.enabled = true;
+            
 
-            PlayerPick.text = playerselection.ToString();
-            RedPick.text = Rbc.redselectedNumber.ToString();
-            GreenPick.text = Gbc.greenselectedNumber.ToString();
-            YellowPick.text = Ybc.yellowselectedNumber.ToString();
-
-
-            CompareNumbersFaceChange();
+           
         }
         }
+
+    void UnhideScores()
+    {
+        Debug.Log("show scores");
+        PlayerPick.text = playerselection.ToString();
+        RedPick.text = Rbc.redselectedNumber.ToString();
+        GreenPick.text = Gbc.greenselectedNumber.ToString();
+        YellowPick.text = Ybc.yellowselectedNumber.ToString();
+    }
+
+
+    //public float moveSpeed = 1f;
+    //public Vector3 targetPosition = new Vector3(0, 1, 0);
+    //public RawImage pc;
+   // public RawImage pcf;
 
     
 
+
+
+
     void CompareNumbersFaceChange()
     {
-
+        Debug.Log("show faces");
         if (playerselection != Rbc.redselectedNumber &&
         playerselection != Gbc.greenselectedNumber &&
         playerselection != Ybc.yellowselectedNumber)

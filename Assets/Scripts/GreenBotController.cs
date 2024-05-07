@@ -16,7 +16,7 @@ public class GreenBotController : MonoBehaviour
     
    void Start()
    {
-
+        gBotJumped = false;
         GreenGO();
    }
 
@@ -33,7 +33,7 @@ public class GreenBotController : MonoBehaviour
        //Debug.Log("Green is waiting " + randomNumber2 + " before jump");
        ySpeed = 0f;
 
-       if (characterController.isGrounded)
+       if (characterController.isGrounded && !gBotJumped)
        {
            ySpeed = jumpSpeed;
        }
